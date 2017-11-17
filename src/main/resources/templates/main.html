@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Them Cars</title>
+    <link rel="stylesheet" th:href="@{/styled.css}" />
+    <meta charset="utf-8" />
+</head>
+<body>
+
+<h1>Cars</h1>
+
+<form th:action="@{/}" th:object="${search}" method="get">
+        <!--<span th:if="${error}" th:text="${error}"/>-->
+        <input  type="search" name="search" placeholder="Search for a car" />
+        <button type="submit" value="Submit">Search</button>
+</form>
+
+<p><a th:href="@{/police}">Police cars only</a></p>
+<p><a th:href="@{/diplomat}">Diplomats only</a></p>
+
+<table>
+    <thead>
+    <tr>
+        <th>Plate</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Color</th>
+        <th>Year</th>
+    </tr>
+    </thead>
+    <tr th:each="car:${cars}">
+        <td th:text="${car.plate}"></td>
+        <td th:text="${car.carBrand}"></td>
+        <td th:text="${car.carModel}"></td>
+        <td th:text="${car.color}"></td>
+        <td th:text="${car.year}"></td>
+    </tr>
+</table>
+
+
+
+
+</body>
+</html>

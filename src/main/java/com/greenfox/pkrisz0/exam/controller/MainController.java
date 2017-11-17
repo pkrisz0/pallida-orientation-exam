@@ -4,10 +4,35 @@ package com.greenfox.pkrisz0.exam.controller;
 import com.greenfox.pkrisz0.exam.repository.CarRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class MainController {
 
     @Autowired
     CarRepo carRepo;
+
+    @GetMapping({"","/"})
+    public String main(Model model, @RequestParam(required = false) String search){
+        if (search != null) {
+            model.addAttribute("cars", carRepo.findAllByPlateIsLike("%" + search + "%"));
+        } else {
+            model.addAttribute("error", "Error: no cars matching that plate in the database.");
+        }
+        return "main";
+    }
+
+    @GetMapping("/diplomat")
+    public String diplomat(Model model){
+        model.addAttribute("cars", carRepo.findAllByPlateStartingWith("DT"));
+        return "main";
+    }
+
+    @GetMapping("/police")
+    public String police(Model model){
+        model.addAttribute("cars", carRepo.findAllByPlateStartingWith("RB"));
+        return "main";
+    }
 }
