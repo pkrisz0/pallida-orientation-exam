@@ -1,0 +1,8 @@
+.idea
+/out
+*.xml
+*.iml
+*.class
+
+.gradle
+!gradle-wrapper.properties
