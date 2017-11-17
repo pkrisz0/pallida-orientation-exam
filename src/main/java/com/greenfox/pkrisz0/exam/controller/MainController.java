@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
@@ -33,6 +34,12 @@ public class MainController {
     @GetMapping("/police")
     public String police(Model model){
         model.addAttribute("cars", carRepo.findAllByPlateStartingWith("RB"));
+        return "main";
+    }
+
+    @GetMapping("/{brand}")
+    public String filter(Model model, @PathVariable String brand){
+        model.addAttribute("cars", carRepo.findAllByCarBrand(brand));
         return "main";
     }
 }
