@@ -1,6 +1,7 @@
 package com.greenfox.pkrisz0.exam.controller;
 
 
+
 import com.greenfox.pkrisz0.exam.repository.CarRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class MainController {
@@ -17,10 +19,13 @@ public class MainController {
 
     @GetMapping({"","/"})
     public String main(Model model, @RequestParam(required = false) String search){
-        if (search != null) {
+
+        if (search != null && search.matches("^.*[^a-zA-Z0-9 ].*$")){
+            model.addAttribute("error", "Sorry, the submitted licence plate is not valid.");
+        } else if (search != null){
             model.addAttribute("cars", carRepo.findAllByPlateIsLike("%" + search + "%"));
         } else {
-            model.addAttribute("error", "Error: no cars matching that plate in the database.");
+            model.addAttribute("cars", carRepo.findAll());
         }
         return "main";
     }
