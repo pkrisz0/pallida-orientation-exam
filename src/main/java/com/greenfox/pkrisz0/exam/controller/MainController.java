@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class MainController {
 
-    String saveparam = "";
+    String savedSearchParam = "";
 
     @Autowired
     CarRepo carRepo;
@@ -26,21 +26,21 @@ public class MainController {
         } else {
             model.addAttribute("cars", carRepo.findAll());
         }
-        saveparam = search;
+        savedSearchParam = search;
         return "main";
     }
 
     @GetMapping("/diplomat") //it ain't pretty
     public String diplomat(Model model){
-        model.addAttribute("cars", carRepo.findAllByPlateIsLikeAndPlateStartingWith("%" + saveparam + "%", "DT"));
-        saveparam = "";
+        model.addAttribute("cars", carRepo.findAllByPlateIsLikeAndPlateStartingWith("%" + savedSearchParam + "%", "DT"));
+        savedSearchParam = "";
         return "main";
     }
 
     @GetMapping("/police")
     public String police(Model model){
-        model.addAttribute("cars", carRepo.findAllByPlateIsLikeAndPlateStartingWith("%" + saveparam + "%", "RB"));
-        saveparam = "";
+        model.addAttribute("cars", carRepo.findAllByPlateIsLikeAndPlateStartingWith("%" + savedSearchParam + "%", "RB"));
+        savedSearchParam = "";
         return "main";
     }
 
