@@ -10,14 +10,13 @@
 <h1>Cars</h1>
 
 <form th:action="@{/}" th:object="${search}" method="get">
-        <input  type="search" name="search" placeholder="Search for a car" />
+        <input  type="search" name="search" placeholder="Search for a car"/>
         <button type="submit" value="Submit">Search</button>
         <p><span th:if="${error}" th:text="${error}"/></p>
-
 </form>
 
 <p><a th:href="@{/police}">Police cars only</a></p>
-<p><a th:href="@{/diplomatT}">Diplomats only</a></p>
+<p><a th:href="@{/diplomat}">Diplomats only</a></p>
 
 <table>
     <thead>
@@ -37,9 +36,5 @@
         <td th:text="${car.year}"></td>
     </tr>
 </table>
-
-
-
-
 </body>
 </html>
